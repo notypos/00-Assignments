@@ -225,11 +225,11 @@ const books = [
 
 // Destructure the books array into two variables called firstBook and secondBook.
 const [firstBook, secondBook] = books;
-console.log(firstBook, secondBook);
+// console.log(firstBook, secondBook);
 
 // Destructure the books array into a variable called thirdBook. You must skip the first two books.
 const [, , thirdBook] = books;
-console.log(thirdBook);
+// console.log(thirdBook);
 
 // Deconstructed ratings
 const ratings = [
@@ -238,10 +238,49 @@ const ratings = [
 ];
 
 const [[, rating], [, ratingsCount]] = ratings;
-console.log(rating, ratingsCount);
+// console.log(rating, ratingsCount);
 
 // Deconstruct ratingStars
 const ratingStars = [63405, 1808];
 const [fiveStarRatings = 0, oneStarRatings = 0, threeStarRatings = 0] =
   ratingStars;
-console.log(fiveStarRatings, oneStarRatings, threeStarRatings);
+// console.log(fiveStarRatings, oneStarRatings, threeStarRatings);
+
+// Destructuring Objects
+// 2.1 Destructure the first book object from the books array into variables called title, author and ISBN.
+// Variables exist as parameters inside the object
+const { title, author, ISBN } = books[0];
+
+// 2.2 Each book object has the keywords property. Destructure the first book object from the books array into a variable called tags. The tags variable should be assigned with the value of the keywords property.
+// Tags doesn't exist as parameter, keywords does. Assigning tags variable to keywords parameters.
+const { keywords: tags } = books[0];
+
+// 2.3 The seventh book from the books array is missing the programmingLanguage property. Destructure the seventh book object (books[6]) into variables called language and programmingLanguage. Assign the programmingLanguage variable with a default value of 'unknown'.
+// Assigning non-existing variables default values
+const { programmingLanguage = "unknown", language } = books[6];
+
+// 2.4 Below are two variables called bookTitle and bookAuthor. Reassign them with the values of the title and author properties of the first book object from the books array.
+// Mutating variables need to be wrapped in parenthesis
+let bookTitle = "unknown";
+let bookAuthor = "unknown";
+console.log(bookAuthor, bookTitle);
+({ title: bookTitle, author: bookAuthor } = books[0]);
+console.log(bookAuthor, bookTitle);
+
+// 2.5
+// Nested Objects: needs ' { } ' for each nested object
+const {
+  thirdParty: {
+    goodreads: { rating: bookRating },
+  },
+} = books[0];
+console.log(bookRating);
+
+// 2.6
+/* Write a function called printBookInfo that has three parameters called title, author and year. 
+This function should work for a single object passed as an argument, and it should log to the console information about the book in this format: "${title} by ${author}, ${year}". */
+// Passing object need ({})
+function prinitBookInfo({ title, author, year = "year unknown" }) {
+  console.log(`${title} by ${author}, ${year}`);
+  return `${title} by ${author}, ${year}`;
+}
